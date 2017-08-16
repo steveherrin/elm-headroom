@@ -82,8 +82,9 @@ rotate { x, y, z } =
 walls =
     let
         wall1 i =
-            { start = rotate { x = 1.0, y = i / nLines, z = 1.0 }
-            , end = rotate { x = -1.0, y = i / nLines, z = 1.0 }
+            -- not sure why I need the factor of 2 (TODO)
+            { start = rotate { x = 1.0, y = 1.0 - 1.0 / nLines, z = 1 - 2 * i / nLines }
+            , end = rotate { x = -1.0, y = 1.0 - 1.0 / nLines, z = 1 - 2 * i / nLines }
             }
 
         wall2 i =
@@ -92,12 +93,11 @@ walls =
             }
 
         wall3 i =
-            -- not sure why I need the factor of 2 (TODO)
-            { start = rotate { x = 1.0, y = 1.0 - 1.0 / nLines, z = 1 - 2 * i / nLines }
-            , end = rotate { x = -1.0, y = 1.0 - 1.0 / nLines, z = 1 - 2 * i / nLines }
+            { start = rotate { x = 1.0, y = i / nLines, z = 1.0 }
+            , end = rotate { x = -1.0, y = i / nLines, z = 1.0 }
             }
     in
-    [ { color = "#ff0000"
+    [ { color = "#0000ff"
       , segments =
             List.map wall1
                 (List.map toFloat <|
@@ -111,7 +111,7 @@ walls =
                     List.range 0 (nLines - 1)
                 )
       }
-    , { color = "#0000ff"
+    , { color = "#ff0000"
       , segments =
             List.map wall3
                 (List.map toFloat <|
