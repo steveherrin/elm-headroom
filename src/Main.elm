@@ -199,7 +199,6 @@ view model =
                 , y2 (toString segment.end.y)
                 , stroke color
                 , strokeWidth "0.01"
-                , transform transforms
                 ]
                 []
 
@@ -212,7 +211,8 @@ view model =
             , width "600px"
             , Svg.Attributes.style "background-color: black"
             ]
-            (List.concat (List.map segments walls))
+            [ g [ transform transforms ] (List.concat (List.map segments walls))
+            ]
         , div []
             [ button [ onClick ScaleDown ] [ Html.text "Scale-" ]
             , button [ onClick ScaleUp ] [ Html.text "Scale+" ]
